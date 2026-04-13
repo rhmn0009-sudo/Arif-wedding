@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Undangan Pernikahan Arif & Shinta</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Arif & Shinta</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: #0f172a;
-      color: white;
+      background: #f8f8f8;
+      color: #333;
       text-align: center;
     }
 
@@ -22,21 +22,30 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486');
+      background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.9)),
+      url('https://images.unsplash.com/photo-1519741497674-611481863552');
       background-size: cover;
       background-position: center;
-      pointer-events: auto;
     }
 
     h1 {
-      font-family: 'Playfair Display', serif;
       font-size: 42px;
-      margin: 10px 0;
+      font-weight: 600;
     }
 
-    h2 {
-      font-size: 20px;
+    p {
+      font-size: 18px;
       font-weight: 300;
+    }
+
+    .btn {
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: #111;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      border: none;
     }
 
     .section {
@@ -44,36 +53,12 @@
     }
 
     .card {
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
+      background: white;
       padding: 30px;
+      border-radius: 15px;
       max-width: 500px;
       margin: auto;
-    }
-
-    .countdown {
-      font-size: 22px;
-      margin-top: 20px;
-    }
-
-    .gallery img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      margin: 5px;
-      border-radius: 10px;
-    }
-
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 24px;
-      background: #e11d48;
-      color: white;
-      border-radius: 10px;
-      text-decoration: none;
-      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
     }
 
     input {
@@ -81,45 +66,48 @@
       padding: 10px;
       margin: 10px 0;
       border-radius: 8px;
-      border: none;
+      border: 1px solid #ccc;
     }
   </style>
 </head>
+
 <body>
 
   <!-- HERO -->
   <section class="hero">
-    <h2>Undangan Pernikahan</h2>
+    <p>Undangan Pernikahan</p>
     <h1>Arif & Shinta</h1>
-    <p>20 April 2026</p>
-    <div class="countdown" id="countdown"></div>
+    <p>20 April 2026 • 08.00 WITA</p>
+    <div id="countdown"></div>
     <button class="btn" id="openBtn">Buka Undangan</button>
+  </section>
+
+  <!-- KATA KATA -->
+  <section class="section">
+    <div class="card">
+      <p>
+        Dengan penuh kebahagiaan, kami mengundang Anda untuk hadir dan memberikan doa restu
+        pada hari bahagia kami.
+      </p>
+    </div>
   </section>
 
   <!-- DETAIL -->
   <section class="section">
     <div class="card">
-      <h1>Detail Acara</h1>
+      <h2>Detail Acara</h2>
       <p>Senin, 20 April 2026</p>
       <p>Pukul 08.00 WITA</p>
-      <p>Masjid Sabilal Muhtadin</p>
-      <a class="btn" href="https://maps.google.com" target="_blank">Buka Maps</a>
+      <p>Jl. Jend Sudirman No.1, Banjarmasin</p>
+      <a class="btn" href="https://maps.app.goo.gl/eRoSosoaaeonTccH7" target="_blank">Buka Maps</a>
     </div>
-  </section>
-
-  <!-- GALERI -->
-  <section class="section gallery">
-    <h1>Galeri</h1>
-    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e">
-    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9">
-    <img src="https://images.unsplash.com/photo-1502767089025-6572583495b0">
   </section>
 
   <!-- RSVP -->
   <section class="section">
     <div class="card">
-      <h1>Konfirmasi Kehadiran</h1>
-      <input type="text" id="nama" placeholder="Nama lo">
+      <h2>Konfirmasi Kehadiran</h2>
+      <input type="text" id="nama" placeholder="Nama">
       <input type="text" id="jumlah" placeholder="Jumlah orang">
       <button class="btn" onclick="kirimWA()">Kirim ke WhatsApp</button>
     </div>
@@ -130,46 +118,42 @@
     <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
   </audio>
 
+  <!-- SCRIPT -->
   <script>
-    // COUNTDOWN
-    const targetDate = new Date("April 20, 2026 08:00:00").getTime();
+    const target = new Date("April 20, 2026 08:00:00").getTime();
 
     setInterval(() => {
       const now = new Date().getTime();
-      const diff = targetDate - now;
+      const diff = target - now;
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const d = Math.floor(diff / (1000*60*60*24));
+      const h = Math.floor((diff/(1000*60*60))%24);
+      const m = Math.floor((diff/(1000*60))%60);
 
       document.getElementById("countdown").innerHTML =
-        days + " hari " + hours + " jam " + minutes + " menit";
+        d + " hari " + h + " jam " + m + " menit";
     }, 1000);
 
-    // MUSIC
-    function playMusic() {
-      <script>
-  const music = document.getElementById("music");
-  const btn = document.getElementById("openBtn");
+    window.onload = function() {
+      const btn = document.getElementById("openBtn");
+      const music = document.getElementById("music");
 
-  btn.addEventListener("click", () => {
-    music.play();
-    btn.innerText = "Undangan Dibuka";
-  });
-</script>
-    }
+      btn.addEventListener("click", function() {
+        music.play();
+        btn.innerText = "Undangan Dibuka";
+      });
+    };
 
-    // WHATSAPP RSVP
     function kirimWA() {
       const nama = document.getElementById("nama").value;
       const jumlah = document.getElementById("jumlah").value;
 
-      const nomor = "62882021112892"; // GANTI NOMOR LO
+      const nomor = "62882021112892";
 
       const text = `Halo, saya ${nama}, konfirmasi hadir ${jumlah} orang.`;
       const url = `https://wa.me/${nomor}?text=${encodeURIComponent(text)}`;
 
-      window.open(url, '_blank');
+      window.open(url, "_blank");
     }
   </script>
 
