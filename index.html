@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Undangan Pernikahan Arif</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #0f172a;
+      color: white;
+      text-align: center;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486');
+      background-size: cover;
+      background-position: center;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      margin: 10px 0;
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 300;
+    }
+
+    .section {
+      padding: 60px 20px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    .countdown {
+      font-size: 22px;
+      margin-top: 20px;
+    }
+
+    .gallery img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin: 5px;
+      border-radius: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: #e11d48;
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h2>Undangan Pernikahan</h2>
+    <h1>Arif & Shinta</h1>
+    <p>20 April 2026</p>
+    <div class="countdown" id="countdown"></div>
+    <button class="btn" onclick="playMusic()">Buka Undangan</button>
+  </section>
+
+  <!-- DETAIL -->
+  <section class="section">
+    <div class="card">
+      <h1>Detail Acara</h1>
+      <p>Senin, 20 April 2026</p>
+      <p>Pukul 08.00 WITA</p>
+      <p>Masjid Sabilal Muhtadin</p>
+      <a class="btn" href="https://maps.google.com" target="_blank">Buka Maps</a>
+    </div>
+  </section>
+
+  <!-- GALERI -->
+  <section class="section gallery">
+    <h1>Galeri</h1>
+    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e">
+    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9">
+    <img src="https://images.unsplash.com/photo-1502767089025-6572583495b0">
+  </section>
+
+  <!-- RSVP -->
+  <section class="section">
+    <div class="card">
+      <h1>Konfirmasi Kehadiran</h1>
+      <input type="text" id="nama" placeholder="Nama lo">
+      <input type="text" id="jumlah" placeholder="Jumlah orang">
+      <button class="btn" onclick="kirimWA()">Kirim ke WhatsApp</button>
+    </div>
+  </section>
+
+  <!-- MUSIC -->
+  <audio id="music" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
+  </audio>
+
+  <script>
+    // COUNTDOWN
+    const targetDate = new Date("April 20, 2026 08:00:00").getTime();
+
+    setInterval(() => {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+      document.getElementById("countdown").innerHTML =
+        days + " hari " + hours + " jam " + minutes + " menit";
+    }, 1000);
+
+    // MUSIC
+    function playMusic() {
+      document.getElementById("music").play();
+    }
+
+    // WHATSAPP RSVP
+    function kirimWA() {
+      const nama = document.getElementById("nama").value;
+      const jumlah = document.getElementById("jumlah").value;
+
+      const nomor = "628123456789"; // GANTI NOMOR LO
+
+      const text = `Halo, saya ${nama}, konfirmasi hadir ${jumlah} orang.`;
+      const url = `https://wa.me/${nomor}?text=${encodeURIComponent(text)}`;
+
+      window.open(url, '_blank');
+    }
+  </script>
+
+</body>
+</html>
