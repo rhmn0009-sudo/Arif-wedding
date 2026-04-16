@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arif & Shinta Wedding</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:#f5f5f5;
+  color:#333;
+  text-align:center;
+  scroll-behavior:smooth;
+}
+
+.section {
+  padding:70px 20px;
+  opacity:0;
+  transform:translateY(40px);
+  transition:0.8s;
+}
+
+.section.show {
+  opacity:1;
+  transform:translateY(0);
+}
+
+.hero {
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.95)),
+  url('https://images.unsplash.com/photo-1519741497674-611481863552');
+  background-size:cover;
+  background-position:center;
+}
+
+h1 {
+  font-size:42px;
+  margin:10px 0;
+}
+
+h2 {
+  margin-bottom:15px;
+}
+
+p {
+  font-weight:300;
+}
+
+#guest {
+  font-size:14px;
+  opacity:0.6;
+}
+
+.btn {
+  margin-top:20px;
+  padding:12px 24px;
+  background:#111;
+  color:white;
+  border:none;
+  border-radius:10px;
+}
+
+.card {
+  background:white;
+  padding:30px;
+  border-radius:15px;
+  max-width:500px;
+  margin:auto;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+input {
+  width:90%;
+  padding:10px;
+  margin:10px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <p id="guest"></p>
+  <p>Undangan Pernikahan</p>
+  <h1>Arif & Shinta</h1>
+  <p>20 April 2026 • 08.00 WITA</p>
+  <div id="countdown"></div>
+  <button class="btn" id="openBtn">Buka Undangan</button>
+</section>
+
+<!-- MEMPELAI -->
+<section class="section">
+  <div class="card">
+    <h2>Pasangan Mempelai</h2>
+    <p><strong>Arif Rahman bin Syarifudin</strong></p>
+    <p>Putra dari Bapak Syarifudin</p>
+    <p>&</p>
+    <p><strong>Roesshinta Sangghawuni binti Roestamadji</strong></p>
+    <p>Putri dari Bapak Roestamadji</p>
+  </div>
+</section>
+
+<!-- KATA -->
+<section class="section">
+  <div class="card">
+    <p>
+      Dengan penuh rasa syukur dan kebahagiaan, kami mengundang Anda
+      untuk hadir serta memberikan doa restu pada hari istimewa kami.
+    </p>
+  </div>
+</section>
+
+<!-- DETAIL -->
+<section class="section">
+  <div class="card">
+    <h2>Detail Acara</h2>
+    <p>Senin, 20 April 2026</p>
+    <p>Pukul 08.00 WITA</p>
+    <p>Jl. Jend Sudirman No.1, Banjarmasin</p>
+    <a class="btn" href="https://maps.app.goo.gl/eRoSosoaaeonTccH7" target="_blank">Buka Maps</a>
+  </div>
+</section>
+
+<!-- DRESS CODE -->
+<section class="section">
+  <div class="card">
+    <h2>Dress Code</h2>
+    <p>Berpakaian Muslim / Muslimah</p>
+    <p style="font-size:14px; opacity:0.7;">Diharapkan berpakaian sopan dan rapi</p>
+  </div>
+</section>
+
+<!-- QR -->
+<section class="section">
+  <h2>Scan Lokasi</h2>
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://maps.app.goo.gl/eRoSosoaaeonTccH7">
+</section>
+
+<!-- RSVP -->
+<section class="section">
+  <div class="card">
+    <h2>Konfirmasi Kehadiran</h2>
+    <input type="text" id="nama" placeholder="Nama">
+    <input type="text" id="jumlah" placeholder="Jumlah orang">
+    <button class="btn" onclick="kirimWA()">Kirim</button>
+  </div>
+</section>
+
+<!-- AMplop -->
+<section class="section">
+  <div class="card">
+    <h2>Amplop Digital</h2>
+    <p>BNI - 1497969855</p>
+    <p>a.n ARIF RAHMAN</p>
+    <button class="btn" onclick="copyRek()">Copy Rekening</button>
+  </div>
+</section>
+
+<!-- PENUTUP -->
+<section class="section">
+  <div class="card">
+    <p>Terima kasih atas doa dan kehadiran Anda.</p>
+    <h3>Arif & Shinta</h3>
+  </div>
+</section>
+
+<audio id="music" loop>
+<source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
+</audio>
+
+<script>
+// nama tamu
+const params = new URLSearchParams(window.location.search);
+const guest = params.get("to");
+if(guest){
+  document.getElementById("guest").innerText="Kepada "+guest;
+}
+
+// countdown
+const target=new Date("April 20 2026 08:00").getTime();
+setInterval(()=>{
+let now=new Date().getTime();
+let d=Math.floor((target-now)/(1000*60*60*24));
+let h=Math.floor((target-now)/(1000*60*60)%24);
+let m=Math.floor((target-now)/(1000*60)%60);
+document.getElementById("countdown").innerHTML=d+" hari "+h+" jam "+m+" menit";
+},1000);
+
+// open
+window.onload=function(){
+let btn=document.getElementById("openBtn");
+let music=document.getElementById("music");
+btn.onclick=function(){
+music.play();
+btn.style.display="none";
+document.querySelectorAll('.section').forEach(el=>el.classList.add('show'));
+}
+}
+
+// WA
+function kirimWA(){
+let nama=document.getElementById("nama").value;
+let jumlah=document.getElementById("jumlah").value;
+window.open(`https://wa.me/62882021112892?text=Halo saya ${nama}, konfirmasi hadir ${jumlah} orang`);
+}
+
+// copy rekening
+function copyRek(){
+navigator.clipboard.writeText("1497969855");
+alert("Rekening disalin");
+}
+</script>
+
+</body>
+</html>
